@@ -44,7 +44,10 @@ function App() {
               </SavePreviousPage>
             }>
               <Route path="posts/create" element={<CreatePost />} />
-              <Route path="posts/:slug" element={<ShowPostPage />} />
+              <Route path="posts/:slug" element={<ShowPostPage />} >
+                <Route path="posts/:slug/update" element={<PostsListPage />} />
+              </Route>
+
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

@@ -1,10 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGlobal } from '../contexts/GlobalContext'
 
-import axios from 'axios'
+import axios from '../utils/axiosCustom'
 
 const ShowPostPage = () => {
+    const navigate = useNavigate();
 
     const { slug } = useParams();
 
@@ -17,7 +18,6 @@ const ShowPostPage = () => {
         category: '',
         tags: [],
         published: false,
-        userId: 1
     }
 
     const [post, setPost] = useState(defaultPost);
@@ -34,7 +34,6 @@ const ShowPostPage = () => {
                 category: post.category,
                 tags: post.tags,
                 published: post.published,
-                userId: post.userId
             }
             setPost(fetchedPost)
 
@@ -58,6 +57,20 @@ const ShowPostPage = () => {
         }
     }
 
+    const deletePost = async () => {
+        try {
+
+            const response = await axios.delete(`http://127.0.0.1:3000/posts/${slug}`);
+
+            console.log("post eliminato", response.data)
+            navigate('/posts');
+
+        } catch (error) {
+            setError(error.message)
+        }
+
+    }
+
     useEffect(() => {
         fetchPost()
     }, [])
@@ -72,7 +85,10 @@ const ShowPostPage = () => {
 
     return (
         <div>
-            <h3>{post.title}</h3>
+            <div className="d-flex">
+                <h3>{post.title}</h3>
+                <span className="btn btn-danger mx-3" onClick={() => deletePost()}>Cancella</span>
+            </div>
             <p>
                 {post.content}
             </p>

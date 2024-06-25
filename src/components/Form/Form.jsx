@@ -17,7 +17,6 @@ const Form = () => {
         category: "",
         tags: [],
         published: false,
-        email: localStorage.getItem('email')
     }
 
     const [formData, setFormData] = useState(setupFormData);
@@ -105,7 +104,6 @@ const Form = () => {
         formDataToSend.append('content', formData.content);
         formDataToSend.append('categoryId', formData.category);
         formDataToSend.append('published', formData.published);
-        formDataToSend.append('email', formData.email);
 
         // Gestione speciale per l'immagine, se presente
         if (formData.image instanceof File) {
@@ -126,8 +124,9 @@ const Form = () => {
             const fetchedPost = response.data
             console.log('Post added successfully:', fetchedPost);
             setFormData(setupFormData)
-            if (res.status < 400) {
-                navigate(`/pizzas/${fetchedPost.slug}`)
+
+            if (response.status < 400) {
+                navigate(`/posts/${fetchedPost.slug}`)
             }
         }
         catch (err) {
