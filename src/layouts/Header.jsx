@@ -1,8 +1,17 @@
 import { useGlobal } from '../contexts/GlobalContext'
+import { useAuth } from '../contexts/AuthContext'
 import { NavLink, Link } from "react-router-dom";
+import { useEffect } from 'react'
 
 const Header = () => {
-    const { allRoutes, isLogged } = useGlobal();
+    const { allRoutes, isLogged, setIsLogged } = useGlobal();
+    const { logout } = useAuth();
+
+
+    useEffect(() => {
+        setIsLogged(isLogged)
+    }, [isLogged])
+
     return (
         <nav className='d-flex'>
             <h1 className="m-4">React Form Blog</h1>
@@ -21,7 +30,7 @@ const Header = () => {
             <div>
                 {
                     isLogged ?
-                        <Link to={'auth/logout'} className='btn btn-danger'>Logout</Link>
+                        <button className='btn btn-danger' onClick={logout}>Logout</button>
                         :
                         <Link to={'auth/login'} className='btn btn-primary'>Login</Link>
                 }

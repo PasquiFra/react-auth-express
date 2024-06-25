@@ -1,7 +1,7 @@
 import PostsList from "../components/Posts/PostsList";
 
 import axios from 'axios'
-import { Children, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 const PostsListPage = () => {

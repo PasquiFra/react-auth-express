@@ -41,6 +41,9 @@ const GlobalState = ({ children }) => {
     }
 
     useEffect(() => {
+        if (localStorage.token) {
+            setIsLogged(true)
+        }
         fetchData()
     }, [])
 

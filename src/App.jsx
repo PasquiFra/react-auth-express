@@ -21,7 +21,6 @@ function App() {
   return (
     <>
       <GlobalState>
-        <SavePreviousPage />
         <Auth>
           <Routes>
 
@@ -39,9 +38,10 @@ function App() {
             </Route>
 
             <Route path="/" element={
-              <AuthUser>
-                <DefaultLayout />
-              </AuthUser>
+              <SavePreviousPage>
+                <AuthUser>
+                </AuthUser>
+              </SavePreviousPage>
             }>
               <Route path="posts/create" element={<CreatePost />} />
               <Route path="posts/:slug" element={<ShowPostPage />} />

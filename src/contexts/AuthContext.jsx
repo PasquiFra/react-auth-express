@@ -24,7 +24,6 @@ const Auth = ({ children }) => {
             localStorage.setItem('token', loginInfo.token);
             localStorage.setItem('username', JSON.stringify(loginInfo.data.username));
             localStorage.setItem('email', JSON.stringify(loginInfo.data.email));
-
         } catch (err) {
             console.log("ho un errore", err)
             setError(err.message)
@@ -50,12 +49,20 @@ const Auth = ({ children }) => {
         }
     }
 
+    const logout = () => {
+        localStorage.setItem('token', null);
+        localStorage.setItem('username', null);
+        localStorage.setItem('email', null);
+        setIsLogged(false)
+    }
+
     return (
         <AuthContext.Provider value={{
             isLogged,
             setIsLogged,
             login,
-            register
+            register,
+            logout
         }}>
             {children}
         </AuthContext.Provider>

@@ -17,7 +17,7 @@ const Form = () => {
         category: "",
         tags: [],
         published: false,
-        email: localStorage.getItem("email")
+        email: localStorage.getItem('email')
     }
 
     const [formData, setFormData] = useState(setupFormData);
@@ -98,12 +98,14 @@ const Form = () => {
         const sendPostEndpoint = "http://127.0.0.1:3000/posts"
         setFormData(formData)
 
+        console.log(formData)
         const formDataToSend = new FormData();
 
         formDataToSend.append('title', formData.title);
         formDataToSend.append('content', formData.content);
         formDataToSend.append('categoryId', formData.category);
         formDataToSend.append('published', formData.published);
+        formDataToSend.append('email', formData.email);
 
         // Gestione speciale per l'immagine, se presente
         if (formData.image instanceof File) {

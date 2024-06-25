@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
     const { login } = AuthGlobal()
-    const { previousPage } = GlobalContext()
+    const { previousPage, setError } = GlobalContext()
     const navigate = useNavigate();
 
     const defaultFormData = {
@@ -23,13 +23,17 @@ const Login = () => {
         }));
     }
 
-    const handleLogin = event => {
+    const handleLogin = async event => {
         event.preventDefault();
+        try {
+            await login(formData);
 
-        login(formData);
-
-        setFormData(defaultFormData)
-        navigate(previousPage || "/");
+            setFormData(defaultFormData)
+            navigate(previousPage || "/");
+        } catch (err) {
+            console.log("ho un errore", err)
+            setError(err.message)
+        }
     }
 
     return (
